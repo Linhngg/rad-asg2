@@ -1,0 +1,11 @@
+<% @news.each_with_index do |new, index| %>
+<div>
+    <p>
+        <%= index+1 %>. 
+        <a href="<%= new.content %>" target="_blank"><%= new.headline %></a>
+    </p>
+    <p>by <%= new.user.username %> | <%= new.comments.count %> comments | <%= link_to "Discuss", :action => :item, :id => new.id %></p>
+</div>
+<% end %>
+
+<%= link_to "More", :action => :index, :p => request.params.has_key?(:p) ? request.params["p"].to_i+1 : 2 %>

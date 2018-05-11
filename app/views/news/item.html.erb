@@ -1,0 +1,29 @@
+<h2>
+    <a href="<%= @new.content %>" target="_blank"><%= @new.headline %></a>
+</h2>
+<p>by <%= @new.user.username %> | <%= @new.comments.count %> comments</p>
+
+<div class="row">
+   <div class="col-md-6">
+        <%= form_for(:comment, :url => {:controller => 'comments', :action => 'postComment'}) do |f| %>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Add a comment</label>
+                <%= text_area_tag :content, "", size: "24x6", class: 'form-control' %>
+            </div>
+            <%= hidden_field_tag 'newId', @new.id  %>
+            <%= f.submit :Submit, class: 'btn btn-primary mb-2' %>
+        <% end %>
+   </div> 
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <hr>
+        <% @new.comments.each_with_index do |comment, index| %>
+            <div>
+                <h4><%= comment.content %></h4>
+                <p>by <%= comment.user.username %> </p>
+            </div>
+        <% end %>
+    </div>
+</div>

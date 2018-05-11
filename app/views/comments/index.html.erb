@@ -1,0 +1,12 @@
+<h2>latest comment <%= @headline %></h2>
+<% @comments.each_with_index do |comment, index| %>
+<div>
+    <p>
+        <%= comment.content %>
+    </p>
+    <p class="text-muted small">by <%= comment.user.username %> | 
+    on <%= link_to comment.new.headline, :controller => :news, :action => :item, :id => comment.new.id %> |
+    <a href="<%= comment.new.content %>" target="_blank">Open Link</a></p>
+</div>
+<hr>
+<% end %>
