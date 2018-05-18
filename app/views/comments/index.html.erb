@@ -1,4 +1,5 @@
-<h2>latest comment <%= @headline %></h2>
+<% content_for :title, "New Comments" %>
+
 <% @comments.each_with_index do |comment, index| %>
 <div>
     <p>

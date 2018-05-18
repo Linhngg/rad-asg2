@@ -9,10 +9,10 @@ class SessionsController < ApplicationController
     authorized_user = User.authenticate(params[:username_or_email],params[:login_password])
     if authorized_user
       session[:user_id] = authorized_user.id
-      flash[:notice] = "Wow Welcome again, you logged in as #{authorized_user.username}"
+      flash[:success] = "Welcome, you logged in as #{authorized_user.username}"
       redirect_to(:controller => "news", :action => 'index')
     else
-      flash[:notice] = "Log in failed"
+      flash[:warning] = "Log in failed"
       render "login"	
     end
   end
@@ -21,9 +21,10 @@ class SessionsController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
+      flash[:success] = "Sign up successfully"
       redirect_to(:controller => "news", :action => 'index')
     else
-      flash[:notice] = "Sign up failed"
+      flash[:warning] = "Sign up failed"
       render "login"
     end
   end
@@ -39,6 +40,7 @@ class SessionsController < ApplicationController
   
   def logout
     session[:user_id] = nil
+    flash[:success] = "Log out successfully. See you again"
     redirect_to :controller => "news", :action => 'index'
   end
   

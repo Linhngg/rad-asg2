@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
     before_filter :check_authentication, :only => [:index]
     
     def index
-        @comments = Comment.all.order('created_at DESC')
+        @comments = Comment.all.order('created_at DESC').first(8)
     end
     
     def postComment
@@ -12,9 +12,9 @@ class CommentsController < ApplicationController
         @comment.new_id = params["newId"]
         @comment.user_id = session[:user_id]
         if @comment.save
-            flash[:message] = 'Comment Added'
+            flash[:success] = 'Comment added successfully'
         else
-            flash[:message] = 'Comment Failed'
+            flash[:warning] = 'Fail to add comment'
         end
         redirect_to :controller => 'news', :action => 'item', :id => params["newId"]
     end

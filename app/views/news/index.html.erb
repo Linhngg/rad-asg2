@@ -1,11 +1,24 @@
+<% content_for :title, "Home Page" %>
+
 <% @news.each_with_index do |new, index| %>
-<div>
+<div class="card" style="margin: 10px 0; background-color: #eaf1ff">
+  <div class="card-body" style="padding: 10px">
     <p>
-        <%= index+1 %>. 
+        <% unless params.has_key?(:p) %>
+            <%= index+1 %>. 
+        <% end %>
+        <% if params.has_key?(:p) %>
+            <%= index+1+(params[:p].to_i - 1)*8 %>. 
+        <% end %>
         <a href="<%= new.content %>" target="_blank"><%= new.headline %></a>
     </p>
     <p>by <%= new.user.username %> | <%= new.comments.count %> comments | <%= link_to "Discuss", :action => :item, :id => new.id %></p>
+  </div>
 </div>
 <% end %>
-
-<%= link_to "More", :action => :index, :p => request.params.has_key?(:p) ? request.params["p"].to_i+1 : 2 %>
+<br>
+<% unless params[:p].to_f >= @lastPage %>
+    <button type="button" class="btn btn-outline-primary" style="color: ">
+        <%= link_to "More", :action => :index, :p => request.params.has_key?(:p) ? request.params["p"].to_i+1 : 2 %>
+    </button>
+<% end %>

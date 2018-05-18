@@ -1,15 +1,19 @@
+<% content_for :title, "Submit a News" %>
+
 <div class="row">
-   <div class="col-md-6">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
         <%= form_for(:new, :url => {:controller => 'news', :action => 'postNews'}) do |f| %>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">News Title</label>
+                <label for="exampleFormControlTextarea1">News Title (required)</label>
                 <%= text_area_tag :headline, "", size: "24x6", class: 'form-control' %>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Source / URL</label>
+                <label for="exampleFormControlInput1">Source / URL (optional)</label>
                 <%= text_field_tag :content, "", class: 'form-control'%>
             </div>
+            <hr>
             <%= f.submit :Submit, class: 'btn btn-primary mb-2' %>
         <% end %>
-   </div> 
+    </div> 
 </div>

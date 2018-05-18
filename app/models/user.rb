@@ -1,12 +1,14 @@
 class User < ActiveRecord::Base
     has_many :new, dependent: :destroy
     has_many :comments, dependent: :destroy
-    attr_accessor :password
-    validates :username, :presence => true, :uniqueness => true, :length => {:in => 3..20}
+    attr_accessor :password 
+    VALID_USERNAME_REGEX = /\A[a-z0-9\-_]+\z/i
+    validates :username, :presence => true, :uniqueness => true, :length => {:in => 2..15}, format: { with: VALID_USERNAME_REGEX }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true, :uniqueness => true, format: { with: VALID_EMAIL_REGEX }
     
-    validates :password, :confirmation => true
+    VALID_PASSWORD_REGEX = /(?=.*?[^0-9A-Za-z])^(?=.*?[A-Z])^(?=.*?[a-z])^(?=.*?[0-9])/
+    validates :password, :confirmation => true, :length => {:minimum => 10}, format: { with: VALID_PASSWORD_REGEX }
     # validates_length_of :password, :in => 6..20, :on => :create
     
     before_save :encrypt_password

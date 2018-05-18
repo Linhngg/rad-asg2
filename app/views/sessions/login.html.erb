@@ -1,23 +1,24 @@
 <% content_for :title, "Signup | Login" %>
-<div class="row">
-  <div class="col-md-6">
+
+<div class="row"> 
+  <div class="col-md-6 mx-auto">
     <div class="row signup_form">
       <h1 class="col-md-12">Sign Up</h1>
       <%= form_for(:user, :url => {:action => 'signup_and_login_attempt'}) do |f| %>
-        <p> Username:</br> <%= f.text_field :username%> </p>
-        <p> Email:</br> <%= f.text_field :email%> </p>
-        <p> Password:</br> <%= f.password_field :password%></p>
-        <p> Password Confirmation:</br> <%= f.password_field :password_confirmation%> </p>
-        <%= f.submit :Signup %>
+        <p> Username:</br> <%= f.text_field :username, class: 'form-control'%> </p>
+        <p> Email:</br> <%= f.text_field :email, class: 'form-control'%> </p>
+        <p> Password:</br> <%= f.password_field :password, class: 'form-control'%></p>
+        <%= f.submit :Signup, class: 'btn btn-primary mb-2' %>
       <% end %>
     </div>
     <hr></hr>
     <div class= "row signin_form">
       <h1 class="col-md-12">Log in</h1>
       <%= form_tag(:action => 'login_attempt') do %>
-        <p>Username or Email:</br> <%= text_field_tag(:username_or_email) %></p> 
-        <p>Password:</br> <%= password_field_tag :login_password %></p> 
-        <%= submit_tag("Log In") %>
+        <p>Username or Email:</br> <%= text_field_tag :username_or_email, "", class: 'form-control' %></p> 
+        <p>Password:</br> <%= password_field_tag :login_password, "", class: 'form-control' %></p> 
+        <!--<%= submit_tag("Log In") %>-->
+        <%= submit_tag :Login, class: 'btn btn-primary mb-2' %>
       <% end %>
     </div>
   </div>

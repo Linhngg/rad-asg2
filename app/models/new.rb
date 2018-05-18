@@ -10,19 +10,9 @@ class New < ActiveRecord::Base
         user.username
     end
     
-    # def as_json(options={})
-    # #   options hash accepts four keys for better customization :only, :methods, :include, :except
-    # #   so whenever such keys are found, we call super with those keys to provide response consisting only those keys  
-    #   if options.key?(:only) or options.key?(:methods) or options.key?(:include) or options.key?(:except)
-    #     h = super(options)
-    #   else
-    #     h = super(only: [:headline, :content, :created_at], 
-    #               methods: [:user_name], )
-    #   end  
-    # end
-    
     def as_json options={}
       {
+        id: id,
         title: headline,
         url: content,
         by: user_name,
