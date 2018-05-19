@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   post "login", :to => "sessions#login"
   post "logout", :to => "sessions#logout"
   get "home", :to => "sessions#home"
-  get "profile", :to => "sessions#profile"
-  get "setting", :to => "sessions#setting"
   post 'sessions/login_attempt'
   post "sessions/signup_and_login_attempt"
 
@@ -13,10 +11,6 @@ Rails.application.routes.draw do
   get "login", :to => "sessions#login"
 
   get 'sessions/home'
-
-  get 'sessions/profile'
-
-  get 'sessions/setting'
 
   get 'users/new'
   post 'users/create'

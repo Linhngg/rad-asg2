@@ -29,15 +29,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  def home
-  end
-
-  def profile
-  end
-
-  def setting
-  end
-  
   def logout
     session[:user_id] = nil
     flash[:success] = "Log out successfully. See you again"
