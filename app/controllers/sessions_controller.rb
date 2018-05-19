@@ -2,9 +2,11 @@ class SessionsController < ApplicationController
   before_filter :authenticate_user, :only => [:home, :profile, :setting]
   before_filter :save_login_state, :only => [:login, :login_attempt]
   
+  # Signup and Login page
   def login
   end
 
+  # Try to login and redirect to pages with flash messages
   def login_attempt
     authorized_user = User.authenticate(params[:username_or_email],params[:login_password])
     if authorized_user
@@ -17,6 +19,7 @@ class SessionsController < ApplicationController
     end
   end
   
+  # Try to signup new user and login after that
   def signup_and_login_attempt
     @user = User.new(user_params)
     if @user.save
@@ -29,6 +32,7 @@ class SessionsController < ApplicationController
     end
   end
 
+  # Log user out and redirect to home page
   def logout
     session[:user_id] = nil
     flash[:success] = "Log out successfully. See you again"

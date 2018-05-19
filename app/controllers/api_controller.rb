@@ -1,6 +1,8 @@
 class ApiController < ActionController::Base
+    # GET: news or comment by id
     def index
         begin  
+            # Seperate first char as identifier and the rest as id
             @first = params[:id].split(//).first
             if @first.eql? 'n'
                 @new = New.find(params[:id][1..-1])
@@ -14,17 +16,20 @@ class ApiController < ActionController::Base
                 }.to_json
             end
         rescue  
+            # Return 400 error if exeption is thrown
             render status: 400, json: {
                 message: "Failed to retrieve data"
             }.to_json 
         end
     end
     
+    # POST: news or comments
     # params: news(type, username, title, url) and comments(type, username, text, news_id)
     def create
         begin  
             @type = params["type"]
             if @type.eql? "news"
+                # Retrieve needed data and save
                 @user = User.where(username: params["username"]).take
                 @new = New.new
                 @new.headline = params["title"]
@@ -41,6 +46,7 @@ class ApiController < ActionController::Base
                     }.to_json 
                 end
             elsif @type.eql? "comment"
+                # Retrieve needed data and save
                 @user = User.where(username: params["username"]).take
                 @new = New.find(params["news_id"])
                 @comment = Comment.new

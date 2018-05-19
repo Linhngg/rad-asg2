@@ -2,6 +2,7 @@ class NewsController < ApplicationController
     before_filter :authenticate_user, :only => [:submit, :postNews]
     before_filter :check_authentication, :only => [:index, :item]
     
+    # Home page: return news item based on page number
     def index
         @numberOfItem = 8
         @pageNumber = 1
@@ -16,14 +17,17 @@ class NewsController < ApplicationController
         end
     end
     
+    # Item page: return 1 item with id
     def item
         @new = New.find(params[:id])
     end
     
+    # GET: return a news object
     def submit
         @new = New.new
     end
     
+    # POST: validate, save news and redirect to pages with flash messages
     def postNews
         @new = New.new
         @new.headline = params["headline"]
