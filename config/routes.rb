@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'static_page/about'
+
+  get 'static_page_controller/about'
+
   root "news#index"
   post "signup", :to => "users#new"
   post "login", :to => "sessions#login"
@@ -27,6 +31,8 @@ Rails.application.routes.draw do
   
   get "v0/item/:id", :to => "api#index"
   post "v0/item/create", :to => "api#create"
+  
+  get "about", :to => "static_page#about"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
